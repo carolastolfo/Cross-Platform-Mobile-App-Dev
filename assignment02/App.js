@@ -2,9 +2,12 @@ import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer, CommonActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Provider } from 'react-redux';
+import { store } from './redux/store.js';
 import SignInScreen from './screens/SignInScreen.js';
 import DashboardScreen from './screens/DashboardScreen.js';
 import BookingScreen from './screens/BookingScreen.js';
+import RoomListScreen from './screens/RoomListScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +44,7 @@ export default function App() {
     })
 
   return (
+    <Provider store={store}>
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='SignIn'>
@@ -50,9 +54,11 @@ export default function App() {
           </Stack.Group>
           <Stack.Group screenOptions={headerSignOutOptions}>
           <Stack.Screen component={DashboardScreen} name='Dashboard' />
+          <Stack.Screen component={RoomListScreen} name="My Bookings" />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
+    </Provider>
   );
 }
